@@ -1,0 +1,54 @@
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+  <title>EVE Scrap</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">EVE Scrap</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    {% if appraisals %}
+    <div class="row">
+      <h1>The Results are:</h1>
+
+      <table class="table">
+        <thead><tr>
+          <th>Item Name</th>
+          <th>Quantity</th>
+          <th>Unit Price (The Forge)</th>
+          <th>Refined Price (The Forge)</th>
+          <th>Refining Loss</th>
+        </tr></thead>
+        {% for appraisal in appraisals: %}
+        <tr>
+          <td>{{ appraisal['name'] }}</td>
+          <td>{{ appraisal['quantity'] }}</td>
+          <td>{{ "%.2f" % appraisal['market_price'] }}</td>
+          <td>{{ "%.2f" % appraisal['refined_value'] }}</td>
+          <td>{{ "%.2f%%" % appraisal['refining_loss'] }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+    {% endif %}
+
+    <div class="row">
+      <h1>Paste a list of items below:</h1>
+      <form action="/" method="POST">
+        <div class="form-group">
+          <textarea class="form-control" id="raw_textarea" name="raw_textarea" rows="20" placeholder="paste stuff to evaluate here. protip: ctrl+a, ctrl+c, ctrl+v"></textarea>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+    </div>
+  </div>
+</body>

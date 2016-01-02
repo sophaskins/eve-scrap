@@ -5,9 +5,11 @@ MarkupSafe==0.23
 PyYAML==3.11
 Werkzeug==0.10.4
 argparse==1.2.1
+autopep8==1.2.1
 cachetools==1.1.5
 evepaste==0.9
 itsdangerous==0.24
+pep8==1.6.2
 requests==2.8.1
 simplejson==3.8.1
 wsgiref==0.1.2

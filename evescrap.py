@@ -117,6 +117,7 @@ def appraise_item(item):
             should_refine = refining_loss < 0.2
 
             appraisal = {
+                'type': 'successful',
                 'name': item['name'],
                 'quantity': item['quantity'],
                 'market_price': market_price,
@@ -124,5 +125,18 @@ def appraise_item(item):
                 'refining_loss': refining_loss * 100.0,
                 'refine': should_refine,
             }
+        else:
+            appraisal = {
+                'type': 'norefine',
+                'name': item['name'],
+                'quantity': item['quantity'],
+                'refine': False,
+            }
+
+    if appraisal == None:
+        appraisal = {
+            'type': 'unparseable',
+            'raw_item': item,
+        }
 
     return appraisal

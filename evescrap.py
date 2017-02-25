@@ -48,7 +48,7 @@ def typeid_to_minerals(type_id):
 
     result = cursor.fetchone()
     # items that do not refine in to minerals don't get a result row :(
-    if result[0] == None:
+    if result[0] is None:
         result = (0, 0, 0, 0, 0, 0, 0, 0)
     return result
 
@@ -62,6 +62,7 @@ def calculate_refined_value(type_id, refining_multiplier):
 
     total_value = reduce(operator.add, refined_value_by_material)
     return total_value
+
 
 def calculate_reprocessing_rate(station_base_rate, tax_rate, scrapmetal_skill_level):
     return 8 * [station_base_rate * (1 - tax_rate) * (1 + 0.02 * scrapmetal_skill_level)]
@@ -84,7 +85,7 @@ def lookup_mineral_prices():
 def lookup_market_price(type_id):
     """Grabs the price of an item from eve-central. For now, we
     *always* grab the Jita 95% Buy Price"""
-    params = { "typeid": type_id, "usesystem": 30000142 } # Jita
+    params = {"typeid": type_id, "usesystem": 30000142}  # Jita
     response = requests.get("http://api.eve-central.com/api/marketstat", params=params)
     xml_tree = ElementTree.fromstring(response.content)
     price = xml_tree.find('.//buy/percentile').text
@@ -133,7 +134,7 @@ def appraise_item(item):
                 'refine': False,
             }
 
-    if appraisal == None:
+    if appraisal is None:
         appraisal = {
             'type': 'unparseable',
             'raw_item': item,

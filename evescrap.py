@@ -99,7 +99,7 @@ def appraise(items):
             appraisal = appraise_item(item)
             if appraisal:
                 parsed_out.append(appraisal)
-        except:
+        except e:
             pass
     return parsed_out
 
